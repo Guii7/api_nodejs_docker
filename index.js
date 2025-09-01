@@ -4,6 +4,12 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+let usuarios = [
+    { id: 1, nome: 'Ana' },
+    { id: 2, nome: 'Carlos' },
+    { id: 3, nome: 'Beatriz' }
+];
+
 // Middleware para permitir que o Express entenda JSON no corpo das requisições
 app.use(express.json());
 
@@ -14,11 +20,6 @@ app.get('/', (req, res) => {
 
 // Rota que retorna um JSON com alguns dados
 app.get('/usuarios', (req, res) => {
-  const usuarios = [
-    { id: 1, nome: 'Guilherme' },
-    { id: 2, nome: 'Jayne' },
-    { id: 3, nome: 'Bernardo' }
-  ];
   res.json(usuarios);
 });
 
@@ -26,6 +27,7 @@ app.get('/usuarios', (req, res) => {
 app.post('/usuarios', (req, res) => {
   const novoUsuario = req.body;
   console.log('Novo usuário recebido:', novoUsuario);
+  usuarios.push(novoUsuario);
   res.status(201).json({
     mensagem: 'Usuário criado com sucesso!',
     usuario: novoUsuario
